@@ -1,18 +1,23 @@
 #include <Arduino.h>
-
-// put function declarations here:
-int myFunction(int, int);
+#include <vs-rc202.h>
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  initLib();                 // Initilize vs-rc202 library
+  servoEnable(1, 1);         // Enable SV1 PWM
+  setServoMovingTime(1000);  // Set moving time to the target position
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  setServoDeg(1, 0);  // Set SV1 servo target position
+  moveServo();        // Start to move servo
+  delay(1200);
+  setServoDeg(1, 1500);
+  moveServo();
+  delay(1200);
+  setServoDeg(1, 0);
+  moveServo();
+  delay(1200);
+  setServoDeg(1, -1500);
+  moveServo();
+  delay(1200);
 }
